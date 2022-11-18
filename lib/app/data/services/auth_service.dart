@@ -6,6 +6,7 @@ import '../models/Auth.dart';
 
 class AuthService extends GetxService {
   static final _supabase = Supabase.instance;
+  static final error = false;
 
   static Future<void> signIn(AuthModel authUserForm) async {
     try {
@@ -14,11 +15,11 @@ class AuthService extends GetxService {
         emailRedirectTo:
             kIsWeb ? null : 'io.supabase.flutter://signin-callback/',
       );
-      if (result.error != null) {
-        throw SupabaseException(
-            "error_db_unknown_title".tr, result.error!.message);
+      if (error != null) {
+        // throw SupabaseException(
+        //     "error_db_unknown_title".tr, result.error!.message);
       }
-      if (result.user == null) {
+      if (error == null) {
         throw SupabaseException(
             "error_db_unknown_title".tr, "auth_aas_es_m_error_sign_in".tr);
       }
